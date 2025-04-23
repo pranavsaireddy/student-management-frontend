@@ -7,7 +7,7 @@ const Home = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch('http://localhost:5000/students');
+        const response = await fetch('https://student-management-backend-7xw2.onrender.com');
         const data = await response.json();
         setStudents(data);
       } catch (err) {
