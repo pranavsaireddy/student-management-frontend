@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import AddStudent from './AddStudent';
+import AddStudent from '../components/AddStudent';
 
 const Students = () => {
   const API_BASE_URL = 'https://student-management-backend-7xw2.onrender.com';
