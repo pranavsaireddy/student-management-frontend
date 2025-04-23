@@ -9,7 +9,7 @@ const Students = () => {
   useEffect(() => {  // Now properly defined
     const fetchStudents = async () => {
       try {
-        const response = await fetch('http://localhost:5000/students');
+        const response = await fetch('https://student-management-backend-7xw2.onrender.com');
         const data = await response.json();
         setStudents(data);
       } catch (err) {
@@ -21,7 +21,7 @@ const Students = () => {
 
   const handleAddStudent = async (studentData) => {
     try {
-      const response = await fetch('http://localhost:5000/students', {
+      const response = await fetch('https://student-management-backend-7xw2.onrender.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ const Students = () => {
 
   const handleDeleteStudent = async (id) => {
     try {
-      await fetch(`http://localhost:5000/students/${id}`, {
+      await fetch(`https://student-management-backend-7xw2.onrender.com/${id}`, {
         method: 'DELETE',
       });
       setStudents(students.filter(student => student._id !== id));
