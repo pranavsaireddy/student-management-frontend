@@ -5,17 +5,18 @@ const Home = () => {
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const response = await fetch('https://student-management-backend-7xw2.onrender.com');
-        const data = await response.json();
-        setStudents(data);
-      } catch (err) {
-        console.error('Error fetching students:', err);
-      }
-    };
-    fetchStudents();
-  }, []);
+  const fetchStudents = async () => {
+    try {
+      // Add /students to the endpoint
+      const response = await fetch('https://student-management-backend-7xw2.onrender.com/students');
+      const data = await response.json();
+      setStudents(data);
+    } catch (err) {
+      console.error('Error fetching students:', err);
+    }
+  };
+  fetchStudents();
+}, []);
 
   return (
     <div>
