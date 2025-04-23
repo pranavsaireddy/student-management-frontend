@@ -1,66 +1,78 @@
-import { useState, useEffect } from 'react';  // Added useEffect here
-import StudentList from '../components/StudentList';
-import AddStudent from '../components/AddStudent';
+import { useState, useEffect } from 'react';
+import AddStudent from './AddStudent';
 
 const Students = () => {
+  const API_URL = 'https://student-management-backend-7xw2.onrender.com';
   const [students, setStudents] = useState([]);
-  const [showAddForm, setShowAddForm] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  useEffect(() => {  // Now properly defined
+  // Fetch all students
+  useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch('https://student-management-backend-7xw2.onrender.com');
+        const response = await fetch(`${API_URL}/students`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch students');
+        }
         const data = await response.json();
         setStudents(data);
+        setError(null);
       } catch (err) {
+        setError(err.message);
         console.error('Error fetching students:', err);
+      } finally {
+        setLoading(false);
       }
     };
     fetchStudents();
   }, []);
 
-  const handleAddStudent = async (studentData) => {
+  // Add new student
+  const onAddStudent = async (student) => {
     try {
-      const response = await fetch('https://student-management-backend-7xw2.onrender.com', {
+      const response = await fetch(`${API_URL}/students`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(studentData),
+        body: JSON.stringify(student),
       });
+      
+      if (!response.ok) {
+        throw new Error('Failed to add student');
+      }
+
       const newStudent = await response.json();
       setStudents([...students, newStudent]);
-      setShowAddForm(false);
+      setError(null);
     } catch (err) {
+      setError(err.message);
       console.error('Error adding student:', err);
     }
   };
 
-  const handleDeleteStudent = async (id) => {
-    try {
-      await fetch(`https://student-management-backend-7xw2.onrender.com/${id}`, {
-        method: 'DELETE',
-      });
-      setStudents(students.filter(student => student._id !== id));
-    } catch (err) {
-      console.error('Error deleting student:', err);
-    }
-  };
+  if (loading) return <div>Loading students...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
-      <h1>Student Management</h1>
-      <button onClick={() => setShowAddForm(!showAddForm)}>
-        {showAddForm ? 'Cancel' : 'Add New Student'}
-      </button>
+    <div className="students-container">
+      <h2>Student Management</h2>
       
-      {showAddForm && <AddStudent onAddStudent={handleAddStudent} />}
+      <AddStudent onAddStudent={onAddStudent} />
       
-      <StudentList 
-        students={students} 
-        onDeleteStudent={handleDeleteStudent}
-        readOnly={false}
-      />
+      <h3>Student List</h3>
+      <ul className="student-list">
+        {students.length > 0 ? (
+          students.map((student) => (
+            <li key={student._id} className="student-item">
+              <span>{student.name}</span> - <span>{student.email}</span>
+            </li>
+          ))
+        ) : (
+          <li>No students found</li>
+        )}
+      </ul>
     </div>
   );
 };
