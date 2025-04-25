@@ -202,54 +202,119 @@ const Students = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
-      <h2>Students</h2>
-      <AddStudent onAddStudent={onAddStudent} />
-      
-      <ul>
-        {students.map(student => (
-          <li key={student._id}>
-            {editingId === student._id ? (
-              <div>
-                <input
-                  type="text"
-                  name="name"
-                  value={editFormData.name}
-                  onChange={handleEditChange}
-                />
-                <input
-                  type="email"
-                  name="email"
-                  value={editFormData.email}
-                  onChange={handleEditChange}
-                />
-                <input
-                  type="number"
-                  name="age"
-                  value={editFormData.age}
-                  onChange={handleEditChange}
-                />
-                <input
-                  type="text"
-                  name="grade"
-                  value={editFormData.grade}
-                  onChange={handleEditChange}
-                />
-                <button onClick={submitEdit}>Save</button>
-                <button onClick={cancelEdit}>Cancel</button>
-              </div>
-            ) : (
-              <div>
+  <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+    <h2 style={{ marginBottom: '20px' }}>Students</h2>
+    <AddStudent onAddStudent={onAddStudent} />
+
+    <ul style={{ listStyle: 'none', padding: 0 }}>
+      {students.map(student => (
+        <li
+          key={student._id}
+          style={{
+            background: '#f9f9f9',
+            marginBottom: '15px',
+            padding: '15px',
+            borderRadius: '8px',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+          }}
+        >
+          {editingId === student._id ? (
+            <div>
+              <input
+                type="text"
+                name="name"
+                value={editFormData.name}
+                onChange={handleEditChange}
+                style={{ marginRight: '8px', padding: '5px' }}
+              />
+              <input
+                type="email"
+                name="email"
+                value={editFormData.email}
+                onChange={handleEditChange}
+                style={{ marginRight: '8px', padding: '5px' }}
+              />
+              <input
+                type="number"
+                name="age"
+                value={editFormData.age}
+                onChange={handleEditChange}
+                style={{ marginRight: '8px', padding: '5px' }}
+              />
+              <input
+                type="text"
+                name="grade"
+                value={editFormData.grade}
+                onChange={handleEditChange}
+                style={{ marginRight: '8px', padding: '5px' }}
+              />
+              <button
+                onClick={submitEdit}
+                style={{
+                  marginRight: '6px',
+                  backgroundColor: '#4CAF50',
+                  color: 'white',
+                  padding: '6px 12px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                Save
+              </button>
+              <button
+                onClick={cancelEdit}
+                style={{
+                  backgroundColor: '#9e9e9e',
+                  color: 'white',
+                  padding: '6px 12px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <div>
+              <span style={{ marginRight: '10px' }}>
                 {student.name} - {student.email} (Age: {student.age}, Grade: {student.grade})
-                <button onClick={() => startEditing(student)}>Edit</button>
-                <button onClick={() => onDeleteStudent(student._id)}>Delete</button>
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+              </span>
+              <button
+                onClick={() => startEditing(student)}
+                style={{
+                  marginRight: '6px',
+                  backgroundColor: '#1976d2',
+                  color: 'white',
+                  padding: '6px 12px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => onDeleteStudent(student._id)}
+                style={{
+                  backgroundColor: '#e53935',
+                  color: 'white',
+                  padding: '6px 12px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 };
 
 export default Students;
