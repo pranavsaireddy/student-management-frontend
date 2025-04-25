@@ -212,52 +212,56 @@ const Students = () => {
           key={student._id}
           style={{
             background: '#f9f9f9',
-            marginBottom: '15px',
-            padding: '15px',
-            borderRadius: '8px',
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+            marginBottom: '12px',
+            padding: '10px 15px',
+            borderRadius: '6px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
           }}
         >
           {editingId === student._id ? (
-            <div>
+            <div style={{ flex: 1 }}>
               <input
                 type="text"
                 name="name"
                 value={editFormData.name}
                 onChange={handleEditChange}
-                style={{ marginRight: '8px', padding: '5px' }}
+                style={{ marginRight: '6px', padding: '4px' }}
               />
               <input
                 type="email"
                 name="email"
                 value={editFormData.email}
                 onChange={handleEditChange}
-                style={{ marginRight: '8px', padding: '5px' }}
+                style={{ marginRight: '6px', padding: '4px' }}
               />
               <input
                 type="number"
                 name="age"
                 value={editFormData.age}
                 onChange={handleEditChange}
-                style={{ marginRight: '8px', padding: '5px' }}
+                style={{ marginRight: '6px', padding: '4px', width: '60px' }}
               />
               <input
                 type="text"
                 name="grade"
                 value={editFormData.grade}
                 onChange={handleEditChange}
-                style={{ marginRight: '8px', padding: '5px' }}
+                style={{ marginRight: '6px', padding: '4px', width: '60px' }}
               />
               <button
                 onClick={submitEdit}
                 style={{
-                  marginRight: '6px',
                   backgroundColor: '#4CAF50',
                   color: 'white',
-                  padding: '6px 12px',
+                  padding: '4px 8px',
+                  fontSize: '12px',
                   border: 'none',
-                  borderRadius: '4px',
-                  cursor: 'pointer'
+                  borderRadius: '3px',
+                  cursor: 'pointer',
+                  marginRight: '5px'
                 }}
               >
                 Save
@@ -267,9 +271,10 @@ const Students = () => {
                 style={{
                   backgroundColor: '#9e9e9e',
                   color: 'white',
-                  padding: '6px 12px',
+                  padding: '4px 8px',
+                  fontSize: '12px',
                   border: 'none',
-                  borderRadius: '4px',
+                  borderRadius: '3px',
                   cursor: 'pointer'
                 }}
               >
@@ -277,44 +282,50 @@ const Students = () => {
               </button>
             </div>
           ) : (
-            <div>
-              <span style={{ marginRight: '10px' }}>
+            <>
+              <span>
                 {student.name} - {student.email} (Age: {student.age}, Grade: {student.grade})
               </span>
-              <button
-                onClick={() => startEditing(student)}
-                style={{
-                  marginRight: '6px',
-                  backgroundColor: '#1976d2',
-                  color: 'white',
-                  padding: '6px 12px',
-                  border: 'none',
-                  borderRadius: '4px',
-                  cursor: 'pointer'
-                }}
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => onDeleteStudent(student._id)}
-                style={{
-                  backgroundColor: '#e53935',
-                  color: 'white',
-                  padding: '6px 12px',
-                  border: 'none',
-                  borderRadius: '4px',
-                  cursor: 'pointer'
-                }}
-              >
-                Delete
-              </button>
-            </div>
+              <span>
+                <button
+                  onClick={() => startEditing(student)}
+                  style={{
+                    marginLeft: '8px',
+                    backgroundColor: '#1976d2',
+                    color: 'white',
+                    padding: '3px 7px',
+                    fontSize: '12px',
+                    border: 'none',
+                    borderRadius: '3px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => onDeleteStudent(student._id)}
+                  style={{
+                    marginLeft: '5px',
+                    backgroundColor: '#e53935',
+                    color: 'white',
+                    padding: '3px 7px',
+                    fontSize: '12px',
+                    border: 'none',
+                    borderRadius: '3px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Delete
+                </button>
+              </span>
+            </>
           )}
         </li>
       ))}
     </ul>
   </div>
 );
+
 };
 
 export default Students;
